@@ -4,7 +4,7 @@ namespace Craft;
 class AssetBreadcrumbTwigExtension extends \Twig_Extension
 {
     protected $env;
-    public $folderids = array();
+    public $folderobjects = array();
     
     public function getName()
     {
@@ -28,12 +28,13 @@ class AssetBreadcrumbTwigExtension extends \Twig_Extension
     
     public function breadcrumb($number)
     {   
-        if(!empty(craft()->assets->getFolderById((int)$number)->parentId)) {
-            $this->folderids[] = (int)$number;
-            return $this->breadcrumb(craft()->assets->getFolderById((int)$number)->parentId);
+        $folder = craft()->assets->getFolderById((int)$number);
+        if(!empty($folder->parentId)) {
+            $this->folderobjects[] = $folder;
+            return $this->breadcrumb($folder->parentId);
         }
         else {
-            return $this->folderids;
+            return array_reverse($this->folderobjects);
         }
     }
 }

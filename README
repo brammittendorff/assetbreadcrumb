@@ -2,4 +2,4 @@ Asset breadcrumb for Craft CMS
 =================
 
 This Plugin that allows you to generate a breadcrumb for assets by a 
-folderId and returns an array of folder numbers in your twig template.
+folderId and returns objects.
